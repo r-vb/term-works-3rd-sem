@@ -30,7 +30,7 @@ int main()
 return 0;
 }
 
-//input fn.     --(a)
+//input fn.      --(a)
 void reading(struct BOOK *b, int *pn){
         int i;
     printf("Enter details of %d books--\n",*pn);
