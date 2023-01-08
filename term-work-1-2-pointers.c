@@ -61,7 +61,7 @@ void display(struct BOOK *b, int *pn){
 void compute(struct BOOK *b, int *pn){
         int i=0, lar;
     lar = i;
-    for (i = 0; i < *pn; i++){
+    for (i = 1; i < *pn; i++){
             if (b[lar].price <= b[i].price)
             {
                 lar = i;
