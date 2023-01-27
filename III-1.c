@@ -7,18 +7,6 @@
 int items[SIZE];
 int front = -1, rear = -1;
 
-//check overflow condition for queue
-int overflow() {
-  if ((front == rear + 1) || (front == 0 && rear == SIZE - 1)) return 1;
-  return 0;
-}
-
-//check empty condition for queue
-int empty() {
-  if (front == -1) return 1;
-  return 0;
-}
-
 //inserting an element
 void insert(int element) {
   if (overflow())
@@ -68,13 +56,25 @@ void display() {
   }
 }
 
+//check empty condition for queue
+int empty() {
+  if (front == -1) return 1;
+  return 0;
+}
+
+//check overflow condition for queue
+int overflow() {
+  if ((front == rear + 1) || (front == 0 && rear == SIZE - 1)) return 1;
+  return 0;
+}
+
 //driver code
 int main() 
 {
         int choice, data;
     for ( ; ; )
     {
-        printf("\n1. Insert\n2. Delete\n3. Display\n4. Overflow\n5. Empty\n6. Exit");
+        printf("\n1. Insert\n2. Delete\n3. Display\n4. Empty\n5. Overflow\n6. Exit");
         printf("\nEnter your choice: ");
         scanf("%d",&choice);
         switch (choice) {
@@ -86,15 +86,15 @@ int main()
                     break;
             case 3: display();
                     break;
-            case 4: if (overflow()) {
-                            printf("CircularQueue is in Overflow state!\n");}
-                    else {
-                            printf("Overflow state -- NEGATIVE!\n");}
-                        break;
-            case 5: if (empty()) {
+            case 4: if (empty()) {
                             printf("CircularQueue is in Underflow state!\n");}
                     else {
                             printf("Underflow state -- NEGATIVE!\n");}
+                        break;
+            case 5: if (overflow()) {
+                            printf("CircularQueue is in Overflow state!\n");}
+                    else {
+                            printf("Overflow state -- NEGATIVE!\n");}
                         break;
             case 6: exit(-1);
             default: printf("Invalid Input!!\n");
