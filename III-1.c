@@ -31,7 +31,7 @@ int delete() {
       front = -1;
       rear = -1;
     } 
-//queue has only one element, so we can reset the queue after dequeing it.
+/*queue has only one element, so we can reset the queue after dequeing it.*/
     else {
       front = (front + 1) % SIZE;
     }
