@@ -1,5 +1,6 @@
-//header file
-#include <stdio.h>
+//header files
+#include<stdio.h>
+#include<stdlib.h>
 
 #define MAX 5
 
@@ -27,7 +28,7 @@ void insert(int data) {
 //fn. to delete an element from the queue
 void delete() {
     if(front == -1) {
-        printf("Queue is empty\n");
+        printf("Queue is empty.\n");
         return;
     }
     int data = queue[front];
@@ -46,7 +47,7 @@ void delete() {
 //f. to display the elements in the queue
 void display() {
     if(front == -1) {
-        printf("Queue is empty\n");
+        printf("Queue is empty.\n");
         return;
     }
     if(rear >= front) {
@@ -82,20 +83,38 @@ int is_overflow() {
     }
 }
 
-int main() {
-    insert(1);
-    insert(2);
-    insert(3);
-    insert(4);
-    insert(5);
-    insert(6);
-    printf("Is overflow: %d\n", is_overflow());
-    printf("Is empty: %d\n", is_empty());
-    display();
-    delete();
-    delete();
-    printf("Is overflow: %d\n", is_overflow());
-    printf("Is empty: %d\n", is_empty());
-    display();
-    return 0;
+//driver code
+int main() 
+{
+        int choice, data;
+    for ( ; ; )
+    {
+        printf("1. Insert\n2. Delete\n3. Display\n4. Empty\n5. Overflow\n6. Exit");
+        printf("\nEnter your choice: ");
+        scanf("%d",&choice);
+        switch (choice) {
+            case 1: printf("Enter data: ");
+                    scanf("%d",&data);
+                    insert(data);
+                    break;
+            case 2: delete();
+                    break;
+            case 3: display();
+                    break;
+            case 4: if (is_overflow()) {
+                            printf("Queue is in Overflow state!\n");}
+                    else {
+                            printf("Overflow state -- NEGATIVE!\n");}
+                        break;
+            case 5: if (is_empty()) {
+                            printf("Queue is in Underflow state!\n");}
+                    else {
+                            printf("Underflow state -- NEGATIVE!\n");}
+                        break;
+            case 6: exit(-1);
+            default: printf("Invalid Input!!\n");
+                    break;
+        }
+    }
+return 0;
 }
