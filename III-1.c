@@ -9,14 +9,14 @@ int front = -1, rear = -1;
 
 //inserting an element
 void insert(int element) {
-  if (overflow())
-    printf("Queue is full!!\n");
+  if (overflow()) {
+    printf("Queue is full!!\n"); }
   else {
-    if (front == -1) front = 0;
+    if (front == -1) {
+      front = 0; }
     rear = (rear + 1) % SIZE;
     items[rear] = element;
-    printf("\n Inserted -> %d", element);
-  }
+    printf("\n Inserted -> %d", element); }
 }
 
 //deleting an element
@@ -24,8 +24,8 @@ int delete() {
   int element;
   if (empty()) {
     printf("Queue is empty!!\n");
-    return (-1);
-  } else {
+    return (-1); }
+  else {
     element = items[front];
     if (front == rear) {
       front = -1;
@@ -36,7 +36,7 @@ int delete() {
       front = (front + 1) % SIZE;
     }
     printf("Deleted element:-- (%d)\n", element);
-    return (element);
+    return (element); 
   }
 }
 

@@ -87,8 +87,7 @@ int is_overflow() {
 int main() 
 {
         int choice, data;
-    for ( ; ; )
-    {
+    for ( ; ; ) {
         printf("1. Insert\n2. Delete\n3. Display\n4. Empty\n5. Overflow\n6. Exit");
         printf("\nEnter your choice: ");
         scanf("%d",&choice);
