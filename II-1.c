@@ -1,14 +1,18 @@
+//header files
 #include<stdio.h>
 #include<stdlib.h>
 
 #define SIZE 20
 
+//structure creation
 struct stack
 {
     int  top;
     char a[SIZE];
 };
 
+
+//push function
 void fnpush(struct stack *s,char str)
 {
     if(s->top==SIZE-1) {
@@ -17,6 +21,7 @@ void fnpush(struct stack *s,char str)
         s->a[++s->top]=str; }
 }
 
+//pop function
 char fnpop(struct stack *s)
 {
         char ch;
@@ -28,6 +33,7 @@ char fnpop(struct stack *s)
         return ch; }
 }
 
+//is_empty_stack function
 int empty(struct stack *s)
 {
     if(s->top==-1) {
@@ -36,6 +42,7 @@ int empty(struct stack *s)
         return 0; }
 }
 
+//condition checking function
 int check(struct stack *s,char str[])
 {
     int i,j;
@@ -59,6 +66,7 @@ int check(struct stack *s,char str[])
         return 0; }
 }
 
+//driver code
 int main()
 {
         int x;
