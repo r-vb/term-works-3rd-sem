@@ -93,3 +93,13 @@ void display(struct PriorityQueue pq) {
     for (i = pq.q2.front; i <= pq.q2.rear; i++)
       printf("%d ", pq.q2.items[i]);
     printf("\n");
+  }
+  if (isEmpty(pq.q3))
+    printf("Queue 3 is Empty\n");
+  else {
+    printf("Queue 3: ");
+    for (i = pq.q3.front; i <= pq.q3.rear; i++)
+      printf("%d ", pq.q3.items[i]);
+    printf("\n");
+  }
+}
