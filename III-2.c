@@ -1,105 +1,126 @@
+//header files
 #include <stdio.h>
 #include <stdlib.h>
 
-#define MAX 10
+#define MAX_SIZE 10
 
-struct Queue {
-  int front, rear;
-  int items[MAX];
-};
+int queue1[MAX_SIZE], queue2[MAX_SIZE], queue3[MAX_SIZE];
+int front1 = -1, rear1 = -1, front2 = -1, rear2 = -1, front3 = -1, rear3 = -1;
 
-struct PriorityQueue {
-  struct Queue q1, q2, q3;
-};
-
-void init(struct Queue *q) {
-  q->front = q->rear = -1;
+//insertion module.
+void insert(int item) {
+    if (rear1 == MAX_SIZE - 1) {
+        printf("Queue Overflow\n");
+        return;
+    }
+    if (front1 == -1) {
+        front1 = 0;
+    }
+    rear1++;
+    queue1[rear1] = item;
+    printf("%d inserted into Queue 1\n", item);
 }
 
-int isEmpty(struct Queue q) {
-  return q.front == -1;
+//deletion module.
+void delete() {
+    if (front1 == -1) {
+        printf("Queue Underflow\n");
+        return;
+    }
+    int item = queue1[front1];
+    printf("%d deleted from Queue 1\n", item);
+    if (front1 == rear1) {
+        front1 = rear1 = -1;
+    } else {
+        front1++;
+    }
 }
 
-int isFull(struct Queue q) {
-  return q.rear == MAX - 1;
-}
-
-void enqueue(struct Queue *q, int item) {
-  if (isFull(*q)) {
-    printf("Queue Overflow\n");
-    return;
-  }
-  q->items[++q->rear] = item;
-  if (q->front == -1)
-    q->front = q->rear;
-}
-
-int dequeue(struct Queue *q) {
-  int item;
-  if (isEmpty(*q)) {
-    printf("Queue Underflow\n");
-    return -1;
-  }
-  item = q->items[q->front++];
-  if (q->front > q->rear) {
-    q->front = q->rear = -1;
-  }
-  return item;
-}
-
-void insert(struct PriorityQueue *pq, int item, int priority) {
-  switch (priority) {
-    case 1:
-      enqueue(&pq->q1, item);
-      break;
-    case 2:
-      enqueue(&pq->q2, item);
-      break;
-    case 3:
-      enqueue(&pq->q3, item);
-      break;
-    default:
-      printf("Invalid priority\n");
-  }
-}
-
-int delete(struct PriorityQueue *pq) {
-  if (!isEmpty(pq->q1))
-    return dequeue(&pq->q1);
-  else if (!isEmpty(pq->q2))
-    return dequeue(&pq->q2);
-  else if (!isEmpty(pq->q3))
-    return dequeue(&pq->q3);
-  else {
-    printf("Queue is Empty\n");
-    return -1;
-  }
-}
-
-void display(struct PriorityQueue pq) {
-  int i;
-  if (isEmpty(pq.q1))
-    printf("Queue 1 is Empty\n");
-  else {
+//display() module.
+void display() {
+    if (front1 == -1) {
+        printf("Queue is empty\n");
+        return;
+    }
     printf("Queue 1: ");
-    for (i = pq.q1.front; i <= pq.q1.rear; i++)
-      printf("%d ", pq.q1.items[i]);
+    for (int i = front1; i <= rear1; i++) {
+        printf("%d ", queue1[i]);
+    }
     printf("\n");
-  }
-  if (isEmpty(pq.q2))
-    printf("Queue 2 is Empty\n");
-  else {
+    if (front2 == -1) {
+        return;
+    }
     printf("Queue 2: ");
-    for (i = pq.q2.front; i <= pq.q2.rear; i++)
-      printf("%d ", pq.q2.items[i]);
+    for (int i = front2; i <= rear2; i++) {
+        printf("%d ", queue2[i]);
+    }
     printf("\n");
-  }
-  if (isEmpty(pq.q3))
-    printf("Queue 3 is Empty\n");
-  else {
+    if (front3 == -1) {
+        return;
+    }
     printf("Queue 3: ");
-    for (i = pq.q3.front; i <= pq.q3.rear; i++)
-      printf("%d ", pq.q3.items[i]);
+    for (int i = front3; i <= rear3; i++) {
+        printf("%d ", queue3[i]);
+    }
     printf("\n");
-  }
+}
+
+//isEmpty checker fn.
+int empty() {
+    if (front1 == -1) {
+        return 1;
+    }
+    return 0;
+}
+
+//isFull checker fn.
+int overflow() {
+    if (rear1 == MAX_SIZE - 1) {
+        return 1;
+    }
+    return 0;
+}
+
+//driver code
+int main() {
+    int choice, item;
+    while (1) {
+        printf("\nPriority Queue Menu\n");
+        printf("1. Insert\n2. Delete\n3. Display\n4. Check if Empty\n5. Check if Overflow\n6. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+        switch (choice) 
+        {
+            case 1:
+                printf("Enter the element to insert: ");
+                scanf("%d", &item);
+                insert(item);
+                break;
+            case 2:
+                delete();
+                break;
+            case 3:
+                display();
+                break;
+            case 4:
+                if (empty()) {
+                    printf("Queue is empty\n");
+                } else {
+                    printf("Queue is not empty\n");
+                }
+                break;
+            case 5:
+                if (overflow()) {
+                    printf("Queue is full\n");
+                } else {
+                    printf("Queue is not full\n");
+                }
+                break;
+            case 6: exit(0);
+            default:
+                printf("Invalid choice\n");
+                break;
+        }
+    }
+    return 0;
 }
