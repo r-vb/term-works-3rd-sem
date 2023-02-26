@@ -1,100 +1,107 @@
-//header files
+//header files.
 #include <stdio.h>
 #include <stdlib.h>
 
 #define MAX_SIZE 10
 
-int queue1[MAX_SIZE], queue2[MAX_SIZE], queue3[MAX_SIZE];
-int front1 = -1, rear1 = -1, front2 = -1, rear2 = -1, front3 = -1, rear3 = -1;
+int front[3] = {-1, -1, -1};
+int rear[3] = {-1, -1, -1};
+int queue[MAX_SIZE];
 
 //insertion module.
-void insert(int item) {
-    if (rear1 == MAX_SIZE - 1) {
-        printf("Queue Overflow\n");
+void insert(int element, int priority) 
+{
+    if (rear[priority] == MAX_SIZE - 1) {
+        printf("Overflow\n");
         return;
     }
-    if (front1 == -1) {
-        front1 = 0;
+    if (front[priority] == -1) {
+        front[priority] = 0;
     }
-    rear1++;
-    queue1[rear1] = item;
-    printf("%d inserted into Queue 1\n", item);
+    rear[priority]++;
+    queue[rear[priority]] = element;
 }
 
-//deletion module.
-void delete() {
-    if (front1 == -1) {
-        printf("Queue Underflow\n");
+//deletion fn.
+void delete() 
+{
+    if (front[0] == -1 && front[1] == -1 && front[2] == -1) {
+        printf("Underflow\n");
         return;
     }
-    int item = queue1[front1];
-    printf("%d deleted from Queue 1\n", item);
-    if (front1 == rear1) {
-        front1 = rear1 = -1;
+    if (front[0] != -1) {
+        printf("Deleted element is %d\n", queue[front[0]]);
+        front[0]++;
+        if (front[0] > rear[0]) {
+            front[0] = rear[0] = -1;
+        }
+    } else if (front[1] != -1) {
+        printf("Deleted element is %d\n", queue[front[1]]);
+        front[1]++;
+        if (front[1] > rear[1]) {
+            front[1] = rear[1] = -1;
+        }
     } else {
-        front1++;
+        printf("Deleted element is %d\n", queue[front[2]]);
+        front[2]++;
+        if (front[2] > rear[2]) {
+            front[2] = rear[2] = -1;
+        }
     }
 }
 
-//display() module.
-void display() {
-    if (front1 == -1) {
+//display module.
+void display() 
+{
+    if (front[0] == -1 && front[1] == -1 && front[2] == -1) {
         printf("Queue is empty\n");
         return;
     }
-    printf("Queue 1: ");
-    for (int i = front1; i <= rear1; i++) {
-        printf("%d ", queue1[i]);
+    printf("Queue elements are:\n");
+    for (int i = 2; i >= 0; i--) {
+        printf("Priority %d: ", i+1);
+        for (int j = front[i]; j <= rear[i]; j++) {
+            printf("%d ", queue[j]);
+        }
+        printf("\n");
     }
-    printf("\n");
-    if (front2 == -1) {
-        return;
-    }
-    printf("Queue 2: ");
-    for (int i = front2; i <= rear2; i++) {
-        printf("%d ", queue2[i]);
-    }
-    printf("\n");
-    if (front3 == -1) {
-        return;
-    }
-    printf("Queue 3: ");
-    for (int i = front3; i <= rear3; i++) {
-        printf("%d ", queue3[i]);
-    }
-    printf("\n");
 }
 
-//isEmpty checker fn.
+//isEmpty fn.
 int empty() {
-    if (front1 == -1) {
+    if (front[0] == -1 && front[1] == -1 && front[2] == -1) {
         return 1;
     }
     return 0;
 }
 
-//isFull checker fn.
+//isFull fn.
 int overflow() {
-    if (rear1 == MAX_SIZE - 1) {
+    if (rear[0] == MAX_SIZE - 1 && rear[1] == MAX_SIZE - 1 && rear[2] == MAX_SIZE - 1) {
         return 1;
     }
     return 0;
 }
 
-//driver code
-int main() {
-    int choice, item;
-    while (1) {
-        printf("\nPriority Queue Menu\n");
-        printf("1. Insert\n2. Delete\n3. Display\n4. Check if Empty\n5. Check if Overflow\n6. Exit\n");
-        printf("Enter your choice: ");
+//driver code.
+int main() 
+{
+    int choice, element, priority;
+
+    for ( ; ; ) 
+    {
+        printf("1.Insert\n2.Delete\n3.Display\n4.Empty\n5.Overflow\n6.Exit\n");
+        printf("Enter your choice:");
         scanf("%d", &choice);
+
         switch (choice) 
         {
             case 1:
-                printf("Enter the element to insert: ");
-                scanf("%d", &item);
-                insert(item);
+                printf("Enter the element to insert:");
+                scanf("%d", &element);
+                printf("Enter the priority:");
+                scanf("%d", &priority);
+                insert(element, priority-1);
                 break;
             case 2:
                 delete();
@@ -116,11 +123,12 @@ int main() {
                     printf("Queue is not full\n");
                 }
                 break;
-            case 6: exit(0);
+            case 6:
+                exit(0);
             default:
                 printf("Invalid choice\n");
-                break;
         }
     }
-    return 0;
+
+return 0;
 }
